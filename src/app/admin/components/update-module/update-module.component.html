@@ -1,0 +1,59 @@
+<div class="max-w-4xl mx-auto bg-white p-6 rounded-md shadow-md" *ngIf="moduleForm">
+    <h2 class="text-3xl font-bold mb-4">Actualizar Módulo</h2>
+  
+    <form [formGroup]="moduleForm" (ngSubmit)="submitForm()">
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Título</label>
+        <input id="name" formControlName="name" type="text" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+        <div *ngIf="moduleForm.get('name')?.touched && moduleForm.get('name')?.invalid" class="text-red-500 text-sm mt-1">
+          El título es obligatorio y debe tener al menos 5 caracteres.
+        </div>
+      </div>
+  
+      <div>
+        <label for="description" class="block text-sm font-medium text-gray-700">Descripción</label>
+        <textarea id="description" formControlName="description" rows="4" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"></textarea>
+        <div *ngIf="moduleForm.get('description')?.touched && moduleForm.get('description')?.invalid" class="text-red-500 text-sm mt-1">
+          La descripción es obligatoria y debe tener al menos 10 caracteres.
+        </div>
+      </div>
+  
+      <div>
+        <label for="image" class="block text-sm font-medium text-gray-700">Imagen</label>
+        <input 
+          id="image" 
+          type="file" 
+          (change)="onFileChange($event)" 
+          class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+        />
+        <div *ngIf="moduleForm.get('image')?.touched && moduleForm.get('image')?.invalid" class="text-red-500 text-sm mt-1">
+            <div *ngIf="moduleForm.get('image')?.errors?.['invalidFileType']">
+              El archivo debe ser una imagen en formato JPG o PNG.
+            </div>
+            <div *ngIf="moduleForm.get('image')?.errors?.['required']">
+              La imagen es obligatoria.
+            </div>
+          </div>
+      </div>
+  
+      <div>
+        <label for="type" class="block text-sm font-medium text-gray-700">Tipo de Módulo</label>
+        <select id="type" formControlName="type" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+          <option *ngFor="let type of types" [value]="type.name">{{ type.name }}</option>
+        </select>
+        <div *ngIf="moduleForm.get('type')?.touched && moduleForm.get('type')?.invalid" class="text-red-500 text-sm mt-1">
+          El tipo de módulo es obligatorio.
+        </div>
+      </div>
+  
+      <div class="mt-4 flex justify-between">
+        <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700">
+          Actualizar Módulo
+        </button>
+        <button type="button" (click)="cancelUpdate()" class="bg-gray-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-gray-600">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+  
