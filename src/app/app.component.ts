@@ -28,20 +28,20 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.loadModules();
-    this.filteredModules = [...this.modules];  // Inicialmente, todos los módulos son visibles
+    this.filteredModules = [...this.modules];
   }
 
   loadModules(): void {
     const savedModules = localStorage.getItem('modules');
     this.modules = savedModules ? JSON.parse(savedModules) : [];
-    this.applyFilters();  // Aplicamos filtros si los hay
+    this.applyFilters(); 
   }
 
   createModule(newModule: Module): void {
-    newModule.id = this.modules.length > 0 ? this.modules[this.modules.length - 1].id + 1 : 1;  // Asignar un id único
+    newModule.id = this.modules.length > 0 ? this.modules[this.modules.length - 1].id + 1 : 1;
     this.modules.push(newModule);
-    this.saveModules();  // Guardamos en LocalStorage
-    this.applyFilters();  // Aplicamos los filtros actualizados
+    this.saveModules();
+    this.applyFilters();
     this.isCreating = false;
   }
   
@@ -51,7 +51,7 @@ export class AppComponent {
     if (index !== -1) {
       this.modules[index] = updatedModule;
       this.saveModules();
-      this.applyFilters();  // Aplicamos los filtros actualizados
+      this.applyFilters();
     }
     this.isCreating = false;
   }
@@ -61,7 +61,7 @@ export class AppComponent {
     if (confirmed) {
       this.modules = this.modules.filter(module => module.id !== id);
       this.saveModules();
-      this.applyFilters();  // Actualizamos los filtros
+      this.applyFilters();
     }
   }
 
@@ -70,35 +70,33 @@ export class AppComponent {
   }
 
   filterModules(): void {
-    this.applyFilters();  // Llamamos a la función que maneja los filtros
+    this.applyFilters();
   }
 
   filterByCategory(category: string): void {
     this.selectedCategory = category;
-    this.applyFilters();  // Actualizamos el filtro por categoría
+    this.applyFilters();
   }
 
   clearFilter(): void {
     this.selectedCategory = null;
-    this.applyFilters();  // Limpiamos los filtros
+    this.applyFilters();
   }
 
   applyFilters(): void {
     let modules = [...this.modules];
 
-    // Aplicar filtro por categoría si hay una seleccionada
     if (this.selectedCategory) {
       modules = modules.filter(module => module.type === this.selectedCategory);
     }
 
-    // Aplicar filtro de búsqueda por nombre
     if (this.searchTerm) {
       modules = modules.filter(module =>
         module.name.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     }
 
-    this.filteredModules = modules;  // Actualizamos los módulos filtrados en la UI
+    this.filteredModules = modules; 
   }
 
   openCreateForm(): void {

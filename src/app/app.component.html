@@ -4,7 +4,6 @@
     <div class="container mx-auto flex flex-col lg:flex-row">
       <div class="lg:w-3/4 w-full p-4 bg-white rounded-lg shadow-md lg:mr-4 mb-4 lg:mb-0">
       
-        <!-- Mostrar el formulario de crear o actualizar según el estado -->
         <div *ngIf="isCreating && !selectedModule">
           <app-create-module (onCreate)="createModule($event)" (onCancel)="cancelCreation()"></app-create-module>
         </div>
@@ -13,7 +12,6 @@
           <app-update-module [module]="selectedModule" (onUpdate)="updateModule($event)" (onCancel)="cancelUpdate()"></app-update-module>
         </div>
 
-        <!-- Mostrar búsqueda y filtro solo cuando no estamos creando o editando -->
         <div *ngIf="!isCreating">
           <div class="mb-4">
             <input 
@@ -25,7 +23,6 @@
             >
           </div>
 
-          <!-- Mostrar filtro por categoría -->
           <div class="flex items-center mb-4">
             <span *ngIf="selectedCategory" class="text-sm font-semibold text-gray-600 mr-4">
               Filtrando por: {{ selectedCategory }}
@@ -35,13 +32,11 @@
             </button>
           </div>
 
-          <!-- Mostrar módulos filtrados -->
           <app-show-module [modules]="filteredModules" (onDelete)="deleteModule($event)" (onEdit)="editModule($event)"></app-show-module>
         </div>
 
       </div>
 
-      <!-- Sidebar para seleccionar categorías -->
       <div class="lg:w-1/4 w-full p-4 bg-white rounded-lg shadow-md h-auto">
         <app-sidebar (onCategorySelected)="filterByCategory($event)"></app-sidebar>
       </div>

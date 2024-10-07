@@ -17,7 +17,6 @@ export class UpdateModuleComponent implements OnInit {
   @Output() onCancel = new EventEmitter<void>();
   moduleForm!: FormGroup;
 
-  // Definimos los tipos directamente en el componente
   types: ModuleType[] = [
     { name: 'Educativo' },
     { name: 'Creativo' },
@@ -38,8 +37,8 @@ export class UpdateModuleComponent implements OnInit {
   }
 
   onFileChange(event: any): void {
-    const file = event.target.files[0];  // Obtener el archivo seleccionado
-    const allowedTypes = ['image/png', 'image/jpeg'];  // Tipos de archivos permitidos
+    const file = event.target.files[0];
+    const allowedTypes = ['image/png', 'image/jpeg'];
     
     if (file && allowedTypes.includes(file.type)) {
       const reader = new FileReader();
@@ -47,13 +46,12 @@ export class UpdateModuleComponent implements OnInit {
       reader.onload = () => {
         const base64String = reader.result as string;
         this.moduleForm.patchValue({ image: base64String });
-        this.moduleForm.get('image')?.updateValueAndValidity();  // Validar el control de imagen
+        this.moduleForm.get('image')?.updateValueAndValidity();
       };
 
-      reader.readAsDataURL(file);  // Convertir el archivo a base64
-      this.moduleForm.get('image')?.setErrors(null);  // Limpiar errores de tipo
+      reader.readAsDataURL(file);
+      this.moduleForm.get('image')?.setErrors(null);
     } else {
-      // Si el tipo de archivo no es válido, establecer el error en el control de imagen
       this.moduleForm.get('image')?.setErrors({ invalidFileType: true });
     }
   }

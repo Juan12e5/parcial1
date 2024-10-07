@@ -27,7 +27,6 @@
         class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
       />
       <div *ngIf="moduleForm.get('image')?.touched && moduleForm.get('image')?.invalid" class="text-red-500 text-sm mt-1">
-        <!-- Mostrar mensaje de error según el tipo de error -->
         <div *ngIf="moduleForm.get('image')?.errors?.['invalidFileType']">
           El archivo debe ser una imagen en formato JPG o PNG.
         </div>
